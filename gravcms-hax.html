@@ -1,16 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../materializecss-styles/materializecss-styles.html">
-<link rel="import" href="../hax-body-behaviors/hax-body-behaviors.html">
-<link rel="import" href="../schema-behaviors/schema-behaviors.html">
+<link rel="import" href="../cms-hax/cms-hax.html">
 <!--
 `gravcms-hax`
-A LRN element
-
-@demo demo/index.html
-
-@microcopy - the mental model for this element
- -
- -
+Integration of GravCMS Admin edit form for a page with HAX.
 
 -->
 
@@ -20,72 +12,109 @@ A LRN element
       :host {
         display: block;
       }
+      hax-panel * {
+        box-sizing: content-box;
+      }
+      hax-panel .label {
+        background: transparent;
+        color: black;
+        vertical-align: unset;
+        border-radius: unset;
+        height: unset;
+        min-width: unset;
+        line-height: unset;
+        display: unset;
+        text-align: unset;
+        margin-right: unset;
+      }
     </style>
-    <h2>[[title]]</h2>
+    <textarea name="[[fieldName]]" hidden>{{bodyValue}}</textarea>
+    <cms-hax sync-body body-value="{{bodyValue}}" body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]" edit-mode="[[editMode]]"><slot name="autoloader"></slot></cms-hax>
+    <div id="bodyslot"><slot></slot></div>
   </template>
 
   <script>
     Polymer({
 
       is: 'gravcms-hax',
-      behaviors: [HAXBehaviors.PropertiesBehaviors, MaterializeCSSBehaviors.ColorBehaviors, SchemaBehaviors.Schema],
       properties: {
         /**
-         * Title
+         * Data binding of a hidden text area with the value from the hax-body tag
          */
-        title: {
+        bodyValue: {
+          type: String,
+        },
+        /**
+         * fieldName, internal to the form n grav.
+         */
+        fieldName: {
+          type: String,
+          value: 'data[content]',
+        },
+                /**
+         * Offset from the left of the body field
+         */
+        bodyOffsetLeft: {
+          type: Number,
+          value: -22,
+        },
+        /**
+         * State of the panel
+         */
+        editMode: {
+          type: Boolean,
+          reflectToAttribute: true,
+        },
+        /**
+         * Location to save content to.
+         */
+        endPoint: {
+          type: String,
+        },
+        /**
+         * Page data, body of text as a string.
+         */
+        updatePageData: {
           type: String,
         },
       },
       /**
-       * Attached to the DOM, now fire.
+       * Attached to the DOM; now we can fire event to the store that
+       * we exist and are the thing being edited.
        */
       attached: function() {
-        // Establish hax property binding
-        let props = {
-          'canScale': true,
-          'canPosition': true,
-          'canEditSource': false,
-          'gizmo': {
-            'title': 'Sample gizmo',
-            'description': 'The user will be able to see this for selection in a UI.',
-            'icon': 'av:play-circle-filled',
-            'color': 'grey',
-            'groups': ['Video', 'Media'],
-            'handles': [
-              {
-                'type': 'video',
-                'url': 'source'
-              }
-            ],
-            'meta': {
-              'author': 'Your organization on github'
-            }
-          },
-          'settings': {
-            'quick': [
-              {
-                'property': 'title',
-                'title': 'Title',
-                'description': 'The title of the element',
-                'inputMethod': 'textfield',
-                'icon': 'editor:title',
-              },
-            ],
-            'configure': [
-              {
-                'property': 'title',
-                'title': 'Title',
-                'description': 'The title of the element',
-                'inputMethod': 'textfield',
-                'icon': 'editor:title',
-              },
-            ],
-            'advanced': [
-            ]
-          }
-        };
-        this.setHaxProperties(props);
+        // @todo, step through slot for both areas injecting them CORRECTLY into the right area
+        this._slotRemap(this.$.bodyslot, Polymer.HaxStore.instance.haxBody);
+      },
+      /**
+       * Slot re-append correction. This helps translate shadow of one to another.
+       */
+      _slotRemap: function(from, to) {
+        // add HTML to a div which makes it's DOM unpack
+        let tmp = from;
+        // trap for text without wrapping HTML tags
+        if (tmp.firstChild == null) {
+          var tmp2 = document.createElement('p');
+          tmp2.innerHTML = tmp.innerHTML;
+          tmp = document.createElement('div');
+          tmp.innerHTML = tmp2.innerHTML;
+        }
+        else if (typeof tmp.firstChild.length !== typeof undefined) {
+          var tmp2 = document.createElement('p');
+          tmp2.innerHTML = tmp.innerHTML;
+          tmp = document.createElement('div');
+          tmp.innerHTML = tmp2.innerHTML;
+        }
+        // same as above but in reverse; now take stuf from what
+        // came across and correctly add it into the slot
+        while (tmp.firstChild) {
+          Polymer.dom(to).appendChild(tmp.firstChild);
+        }
+        // clear from
+        let slot = from;
+        while (slot.firstChild !== null) {
+          slot.removeChild(slot.firstChild);
+        }
       },
     });
   </script>
