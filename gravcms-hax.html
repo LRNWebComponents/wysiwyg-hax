@@ -12,25 +12,9 @@ Integration of GravCMS Admin edit form for a page with HAX.
       :host {
         display: block;
       }
-      hax-panel * {
-        box-sizing: content-box;
-      }
-      hax-panel .label {
-        background: transparent;
-        color: black;
-        vertical-align: unset;
-        border-radius: unset;
-        height: unset;
-        min-width: unset;
-        line-height: unset;
-        display: unset;
-        text-align: unset;
-        margin-right: unset;
-      }
     </style>
-    <textarea name="[[fieldName]]" hidden>{{bodyValue}}</textarea>
-    <cms-hax sync-body body-value="{{bodyValue}}" body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]" edit-mode="[[editMode]]"><slot name="autoloader"></slot></cms-hax>
-    <div id="bodyslot"><slot></slot></div>
+    <textarea name="[[fieldName]]" hidden>[[bodyValue]]</textarea>
+    <cms-hax hide-message sync-body body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]"><slot name="autoloader"></slot><slot></slot></cms-hax>
   </template>
 
   <script>
@@ -84,7 +68,14 @@ Integration of GravCMS Admin edit form for a page with HAX.
        */
       attached: function() {
         // @todo, step through slot for both areas injecting them CORRECTLY into the right area
-        this._slotRemap(this.$.bodyslot, Polymer.HaxStore.instance.haxBody);
+        //this._slotRemap(this.$.bodyslot, Polymer.HaxStore.instance.haxBody);
+        document.body.addEventListener('hax-body-content-changed', this._bodyContentUpdated.bind(this));
+      },
+      /**
+       * Set the bubbled up event to the body value that just got changed
+       */
+      _bodyContentUpdated: function(e) {
+        this.bodyValue = e.detail;
       },
       /**
        * Slot re-append correction. This helps translate shadow of one to another.
@@ -109,11 +100,6 @@ Integration of GravCMS Admin edit form for a page with HAX.
         // came across and correctly add it into the slot
         while (tmp.firstChild) {
           Polymer.dom(to).appendChild(tmp.firstChild);
-        }
-        // clear from
-        let slot = from;
-        while (slot.firstChild !== null) {
-          slot.removeChild(slot.firstChild);
         }
       },
     });
