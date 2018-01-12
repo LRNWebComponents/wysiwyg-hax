@@ -1,26 +1,26 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../cms-hax/cms-hax.html">
 <!--
-`gravcms-hax`
-Integration of GravCMS Admin edit form for a page with HAX.
+`wysiwyg-hax`
+Integration of wysiwyg edit form for a page with HAX.
 
 -->
 
-<dom-module id="gravcms-hax">
+<dom-module id="wysiwyg-hax">
   <template>
     <style>
       :host {
         display: block;
       }
     </style>
-    <textarea name="[[fieldName]]" hidden>[[bodyValue]]</textarea>
+    <textarea id$="[[fieldId]]" name="[[fieldName]]" hidden>[[bodyValue]]</textarea>
     <cms-hax hide-message sync-body body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]"><slot name="autoloader"></slot><slot></slot></cms-hax>
   </template>
 
   <script>
     Polymer({
 
-      is: 'gravcms-hax',
+      is: 'wysiwyg-hax',
       properties: {
         /**
          * Data binding of a hidden text area with the value from the hax-body tag
@@ -29,13 +29,20 @@ Integration of GravCMS Admin edit form for a page with HAX.
           type: String,
         },
         /**
-         * fieldName, internal to the form n grav.
+         * fieldId, id value on the input field.
+         */
+        fieldId: {
+          type: String,
+          value: 'textarea-input-field',
+        },
+        /**
+         * fieldName, internal to the form in whatever system it's in.
          */
         fieldName: {
           type: String,
           value: 'data[content]',
         },
-                /**
+        /**
          * Offset from the left of the body field
          */
         bodyOffsetLeft: {

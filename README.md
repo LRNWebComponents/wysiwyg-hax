@@ -2,21 +2,21 @@
 ```
 <custom-element-demo>
   <template>
-    <link rel="import" href="gravcms-hax.html">
+    <link rel="import" href="wysiwyg-hax.html">
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
 ```html
-<gravcms-hax></gravcms-hax>
+<wysiwyg-hax></wysiwyg-hax>
 ```
 
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/gravcms-hax)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/wysiwyg-hax)
 
-# \<gravcms-hax\>
+# \<wysiwyg-hax\>
 
-A LRN element
+A wrapper for cms-hax which then makes it easier to pull into a wysiwyg field. This allows for replacing `<textarea>` tags currently in existing systems with a wysiwyg-hax tag which is rigged up.
 
 ## Install the Polymer-CLI
 

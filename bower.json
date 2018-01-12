@@ -1,7 +1,7 @@
 {
-  "name": "gravcms-hax",
-  "description": "A LRN element",
-  "main": "gravcms-hax.html",
+  "name": "wysiwyg-hax",
+  "description": "A LRN element that goes for wysiwyg style integration with HTML blob fields",
+  "main": "wysiwyg-hax.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.10.1",
     "hax-body-behaviors": "LRNWebComponents/hax-body-behaviors#^1.2.0",
