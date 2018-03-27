@@ -14,7 +14,7 @@ Integration of wysiwyg edit form for a page with HAX.
       }
     </style>
     <textarea id$="[[fieldId]]" name="[[fieldName]]" hidden>[[bodyValue]]</textarea>
-    <cms-hax hide-message sync-body body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]"><slot name="autoloader"></slot><slot></slot></cms-hax>
+    <cms-hax hide-message sync-body body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]" app-store-connection="[[appStoreConnection]]"><slot name="autoloader"></slot><slot></slot></cms-hax>
   </template>
 
   <script>
@@ -27,6 +27,12 @@ Integration of wysiwyg edit form for a page with HAX.
          */
         bodyValue: {
           type: String,
+        },
+        /**
+         * Connection object for talking to an app store.
+         */
+        appStoreConnection: {
+          type: Object,
         },
         /**
          * fieldId, id value on the input field.

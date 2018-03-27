@@ -38,6 +38,7 @@
     "iron-collapse": "^2.0.0",
     "paper-dropdown-menu": "^2.0.0",
     "paper-spinner": "1 - 2",
-    "paper-tooltip": "^2.0.0"
+    "paper-tooltip": "^2.0.0",
+    "iron-resizable-behavior": "^2.0.1"
   }
 }
