@@ -14,7 +14,7 @@ Integration of wysiwyg edit form for a page with HAX.
       }
     </style>
     <textarea id$="[[fieldId]]" name="[[fieldName]]" hidden>[[bodyValue]]</textarea>
-    <cms-hax open-default="[[openDefault]]" hide-message sync-body body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]" app-store-connection="[[appStoreConnection]]" hide-export-button="[[hideExportButton]]" align="[[align]]"><slot name="autoloader"></slot><slot></slot></cms-hax>
+    <cms-hax open-default="[[openDefault]]" hide-message body-offset-left="[[bodyOffsetLeft]]" update-page-data="[[updatePageData]]" end-point="[[endPoint]]" app-store-connection="[[appStoreConnection]]" hide-export-button="[[hideExportButton]]" align="[[align]]"><slot name="autoloader"></slot><slot></slot></cms-hax>
   </template>
 
   <script>
@@ -102,15 +102,13 @@ Integration of wysiwyg edit form for a page with HAX.
        * we exist and are the thing being edited.
        */
       attached: function() {
-        // @todo, step through slot for both areas injecting them CORRECTLY into the right area
-        //this._slotRemap(this.$.bodyslot, Polymer.HaxStore.instance.haxBody);
-        document.body.addEventListener('hax-body-content-changed', this._bodyContentUpdated.bind(this));
+        document.body.addEventListener('hax-save', this._bodyContentUpdated.bind(this));
       },
       /**
        * Set the bubbled up event to the body value that just got changed
        */
       _bodyContentUpdated: function(e) {
-        this.bodyValue = e.detail;
+        this.bodyValue = Polymer.HaxStore.instance.activeHaxBody.haxToContent();
       },
       /**
        * Slot re-append correction. This helps translate shadow of one to another.
