@@ -6,7 +6,7 @@
     "polymer": "Polymer/polymer#^1.10.1",
     "cms-hax": "LRNWebComponents/cms-hax",
     "iron-dropdown": "PolymerElements/iron-dropdown#^2.2.1",
-    "hax-body": "LRNWebComponents/hax-body#^0.20.6"
+    "hax-body": "LRNWebComponents/hax-body#^0.20.9"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -18,7 +18,7 @@
     "webcomponentsjs": "^0.7.24",
     "polymer": "^1.11.1",
     "iron-icons": "^2.0.1",
-    "paper-icon-button": "1 - 2",
+    "paper-icon-button": "^2.2.0",
     "paper-styles": "^2.1.0",
     "iron-flex-layout": "^2.0.3",
     "iron-selector": "^2.1.0",
@@ -31,18 +31,20 @@
     "paper-input": "^2.0.4",
     "paper-checkbox": "^2.0.1",
     "paper-menu-button": "1 - 2",
-    "iron-image": "1 - 2",
+    "iron-image": "^2.2.1",
     "paper-dropdown-menu": "^2.0.0",
     "iron-collapse": "^2.0.0",
     "iron-overlay-behavior": "^2.2.0",
     "hax-body": "^0.20.1",
-    "iron-menu-behavior": "1 - 2",
+    "iron-menu-behavior": "^2.1.1",
     "eco-json-schema-form": "v1.0.0-lrn11",
     "paper-tooltip": "^2.0.0",
     "schema-behaviors": "^1.0.0",
     "materializecss-styles": "^1.1.0",
     "responsive-grid": "^1.0.0",
     "responsive-utility": "^0.0.1",
-    "paper-spinner": "^2.1.0"
+    "paper-spinner": "^2.1.0",
+    "simple-colors": "^1.0.2",
+    "iron-dropdown": "^2.2.1"
   }
 }
